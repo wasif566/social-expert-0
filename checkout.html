@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Summary</title>
+
+  <script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '681008867627635');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=681008867627635&ev=PageView&noscript=1"
+/></noscript>
+  <style>
+/* 🌐 General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  width: 80%;
+  max-width: 1200px;   /* ✅ keeps it nice on large screens */
+  margin: 0 auto;      /* ✅ centers the body horizontally */
+  background: linear-gradient(135deg, #2b1055 0%, #7597de 100%);
+
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+
+/* 🌟 Heading */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #eeeeee;
+}
+
+/* 🛒 Checkout Container */
+#checkoutContainer {
+  background: #fff;
+  padding: 15px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+/* 📊 Cart Table */
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.cart-table th, 
+.cart-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.cart-table th {
+  background: #f0f2f5;
+  font-weight: bold;
+  font-size: 18px;
+  color: #444;
+}
+
+.cart-table tr:hover {
+  background: #fafafa;
+}
+
+.cart-table a {
+  color: #0077cc;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.cart-table a:hover {
+  text-decoration: underline;
+}
+
+/* 💰 Total Section */
+.total {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 10px;
+  color: #292929;
+}
+
+/* 💳 Payment Section */
+#paymentSection {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+#paymentSection h3 {
+  margin-bottom: 12px;
+  color: #222;
+}
+
+#paymentSection div {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* 📋 Copy Button */
+.copy-btn {
+  margin-left: 10px;
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.3s ease;
+}
+
+.copy-btn:hover {
+  background: #005fa3;
+}
+/* 📱 WhatsApp Button */
+.whatsapp-btn {
+  color: #fff;
+  background: #25d366;
+  padding: 6px 12px;
+  
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem; /* ✅ Add this */
+  transition: background 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebc57;
+}
+
+
+.whatsapp-btn:hover {
+  background: #1da955;
+}
+
+/* 📂 Upload Section */
+.upload-section {
+
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+.upload-section label {
+  display: block;
+  margin: 10px 0 6px;
+  font-weight: 500;
+}
+
+.upload-section input[type="file"],
+.upload-section textarea {
+  width: 100%;
+cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.upload-section input[type="file"]:focus,
+.upload-section textarea:focus {
+  border-color: #0077cc;
+}
+/* ✅ Confirm Button */
+.checkout-btn {
+  display: block;
+  width: 50%;
+  margin: 20px auto;   /* ✅ centers the button horizontally */
+ background: linear-gradient(135deg, #5c7aff 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  text-align: center;
+  padding: 14px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.checkout-btn:hover {
+  box-shadow: 0 5px 15px rgba(109, 122, 181, 0.4);
+  transform: translateY(-2px);
+}
+
+
+
+.bold-text{
+  font-weight: bold;
+}
+
+.payment-method h4{
+font-size: 16px;
+}
+
+.payment-method p {
+  font-size: 0.95rem;
+  line-height: 1.5;       /* better readability */
+  color: #363636;
+  word-wrap: break-word;
+  white-space: normal;
+  margin-bottom: 10px;
+
+  max-width: 600px;       /* ✅ limit paragraph width */
+    /* ✅ center align */
+}
+
+
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  body {
+    width: 90%;
+    padding: 12px;
+  }
+
+  .cart-table th, 
+  .cart-table td {
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .checkout-btn {
+    font-size: 0.8rem;
+    padding: 12px;
+  }
+
+  /* 🔗 For Mobile: only show "View Link ↗" */
+  .desktop-link {
+    display: none;
+  }
+  .mobile-link {
+   
+    display: inline-block;
+  }
+}
+
+@media (min-width: 769px) {
+  /*  For Desktop: show shortened link */
+  .desktop-link {
+    display: inline-block;
+  }
+  .mobile-link {
+    display: none;
+  }
+}
+
+  /* .whatsapp-btn {
+    font-size: 0.9rem;
+    padding: 4px 6px;
+} */
+
+@media (max-width: 480px) {
+
+  
+  .cart-table th, 
+  .cart-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .upload-section label {
+    font-size: 0.9rem;
+  }
+
+  .copy-btn, .whatsapp-btn {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+  
+.payment-method h4{
+font-size: 16px;
+}
+
+.payment-method p {
+  font-size: 14px;
+
+}
+
+}
+
+.Email{
+  font-size:14px ;
+}
+@media (max-width: 320px) {
+.mobile-link{
+  font-size: 8px;
+}
+  
+.cart-table th, 
+.cart-table td {
+  padding: 8px;
+  font-size: 0.6rem;
+}
+ body {
+   
+    padding: 2px;
+  }
+  .whatsapp-btn {
+    font-size: 0.6rem;
+    padding: 4px 8px;
+}
+
+.Email{
+  font-size:10px ;
+}
+.copy-btn{
+  padding: 4px 6px;
+  font-size: 10px;
+}
+}
+
+  </style>
+</head>
+<body>
+  <h1>Order Summary</h1>
+
+  <div id="checkoutContainer"></div>
+
+  <!-- ✅ Payment Method Section -->
+  <div id="paymentSection">
+    <h3>Payment Method</h3>
+    <p>Loading available payment options...</p>
+  </div>
+
+  <!-- ✅ Upload proof + comments -->
+  <div class="upload-section">
+    <label for="paymentScreenshot">Upload Payment Screenshot:</label>
+    <input type="file" id="paymentScreenshot" accept="image/*">
+
+    <label for="additionalComment">Additional Comment:</label>
+    <textarea id="additionalComment" rows="4" placeholder="Any special instructions or comments..."></textarea>
+   <button class="checkout-btn" id="confirmCheckout">Submit Order</button>
+  </div>
+
+ 
+
+  <script>
+    // ✅ Format with PKR handling
+    function formatCurrency(num, currency) {
+      if (currency === "PKR") {
+        return "Rs " + new Intl.NumberFormat("en-PK").format(num);
+      }
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: currency
+      }).format(num);
+    }
+
+    // ✅ Shorten URL for display (50%)
+    function shortenUrl(url) {
+      if (url.length <= 60) return url;
+      const half = Math.floor(url.length / 2);
+      return url.slice(0, half) + "...";
+    }
+
+    // ✅ Load checkout data
+    const checkoutData = JSON.parse(localStorage.getItem('checkoutData') || '{}');
+    const container = document.getElementById('checkoutContainer');
+
+    if(!checkoutData || !checkoutData.cart || checkoutData.cart.length === 0){
+      container.textContent = 'Your cart is empty.';
+    } else {
+      const table = document.createElement('table');
+      table.className = 'cart-table';
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Service</th>
+            <th>Quantity</th>
+            <th>URL</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      `;
+      const tbody = table.querySelector('tbody');
+
+      checkoutData.cart.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.platform}</td>
+          <td>${item.service}</td>
+          <td>${item.quantity}</td>
+          <td>
+            <a href="${item.url}" target="_blank" class="desktop-link">${shortenUrl(item.url)}</a>
+            <a href="${item.url}" target="_blank" class="mobile-link">View↗</a>
+          </td>
+          <td>${formatCurrency(item.displayPrice, checkoutData.displayCurrency)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      container.appendChild(table);
+
+      const totalDiv = document.createElement('div');
+      totalDiv.className = 'total';
+      totalDiv.innerHTML = `Total: ${formatCurrency(checkoutData.total, checkoutData.displayCurrency)}`;
+      container.appendChild(totalDiv);
+    }
+
+    // ✅ Payment Section
+    async function populatePaymentSection() {
+      const paymentSection = document.getElementById('paymentSection');
+      try {
+        const response = await fetch('payments.json');
+        const payments = await response.json();
+
+        const payment = payments[checkoutData.baseCurrency];
+        if (!payment) {
+          paymentSection.innerHTML = "<p>No payment method available.</p>";
+          return;
+        }
+
+        let paymentHTML = '';
+        switch (checkoutData.baseCurrency) {
+          case 'USD':
+          case 'GBP':
+          case 'EUR':
+            paymentHTML = `
+             <div class="payment-method">
+                        <h4>💳 ${payment.method} Payment</h4>
+                        <p>${payment.description}</p>
+                    </div>
+                    
+                    <div class="acount-title">
+                        <label class="bold-text">Name:</label>
+                        <span class="bold-text">${payment.name}</span>
+                    </div>
+                    <div class="copyable-field">
+                        <label class="bold-text">Email:</label>
+                        <span class="Email">${payment.email}</span>
+                        <button class="copy-btn" onclick="copyToClipboard('${payment.email}', this)">Copy</button>
+                    </div>
+                `;
+            break;
+          case 'PKR':
+            paymentHTML = `
+             <div class="payment-method">
+                        <h4>💳 ${payment.method}</h4>
+                        <p>${payment.description}</p>
+                    </div>
+                    
+                    <div class="acount-title">
+                        <label class="bold-text">Name:</label>
+                        <span class="bold-text">${payment.name}</span>
+                    </div>
+                    <div class="copyable-field">
+                        <label class="bold-text">Number:</label>
+                        <span class="bold-text">${payment.number}</span>
+                        <button class="copy-btn" onclick="copyToClipboard('${payment.number}', this)">Copy</button>
+                    </div>
+                `;
+            break;
+          case 'INR':
+            paymentHTML = `
+                           <div class="payment-method">
+                        <h4>💳${payment.method}</h4>
+                        <p>${payment.description}</p>
+                       
+
+
+
+                        </div>
+                        <div style="margin: 1rem 0; padding: 0.2rem; font-size:20px; color: rgb(25, 101, 25); border-radius: 10px; text-align: center;">
+                            <p><strong>Scan and pay</strong></p>
+                            <div style="width: 250px; height: auto; margin: 0.3rem auto; border: 2px dashed #ccc ; border-radius: 10px;  display: flex; align-items: center; justify-content: center;">
+                                <img src="${payment.qrCode}" alt="UPI QR Code" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            break;
+        }
+
+        paymentSection.innerHTML = paymentHTML + `
+          <p class="payment-text">
+            If you want another payment method, contact on 
+            <a href="https://wa.me/923266438812?text=Hello%20I%20want%20to%20know%20about%20another%20payment%20method"
+              target="_blank"
+              class="whatsapp-btn">📱 WhatsApp</a>
+          </p>`;
+      } catch (err) {
+        paymentSection.innerHTML = "<p>Error loading payment methods.</p>";
+      }
+    }
+
+    // ✅ Copy to clipboard
+    function copyToClipboard(text, button) {
+      navigator.clipboard.writeText(text).then(() => {
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = 'Copy', 2000);
+      }).catch(() => alert("Failed to copy"));
+    }
+
+    // ✅ Confirm button → WhatsApp message
+    document.getElementById('confirmCheckout').addEventListener('click', () => {
+      if (typeof fbq === 'function' && checkoutData && checkoutData.cart) {
+  // Step 1: InitiateCheckout → user is submitting order
+  fbq('track', 'InitiateCheckout', {
+    currency: checkoutData.baseCurrency,
+    value: checkoutData.total,
+    num_items: checkoutData.cart.length
+  });
+
+  // Step 2: Purchase → same click = considered purchase
+  fbq('track', 'Purchase', {
+    currency: checkoutData.baseCurrency,
+    value: checkoutData.total
+  });
+}
+
+      const comment = document.getElementById('additionalComment').value;
+      const screenshot = document.getElementById('paymentScreenshot').files[0];
+
+      let cartDetails = "";
+      if (checkoutData.cart.length === 1) {
+        const item = checkoutData.cart[0];
+        cartDetails += `*Platform:* ${item.platform}\n`;
+        cartDetails += `*Service:* ${item.service}\n`;
+        cartDetails += `*Quantity:* ${item.quantity}\n`;
+        cartDetails += `*Link:* ${item.url}\n`;
+        cartDetails += `*Price:* ${formatCurrency(item.displayPrice, checkoutData.displayCurrency)}\n`;
+      } else {
+        checkoutData.cart.forEach((item, i) => {
+          cartDetails += `*Order #${i+1}*\n`;
+          cartDetails += `*Platform:* ${item.platform}\n`;
+          cartDetails += `*Service:* ${item.service}\n`;
+          cartDetails += `*Quantity:* ${item.quantity}\n`;
+          cartDetails += `*Link:* ${item.url}\n`;
+          cartDetails += `*Price:* ${formatCurrency(item.displayPrice, checkoutData.displayCurrency)}\n\n`;
+        });
+      }
+
+      let message = `🛒 *Checkout Order*\n\n${cartDetails}`;
+      message += `*Total Amount:* ${formatCurrency(checkoutData.total, checkoutData.displayCurrency)}\n`;
+      message += `*Screenshot:* ${screenshot ? "Uploaded" : "Uploaded"}\n`;
+      message += `*Additional Comments:* ${comment || "N/A"}\n\n`;
+      message += `Note:\nI didn't receive your payment screenshot yet. Please send your payment screenshot again.\nOnce your payment is confirmed, your order will be processed instantly.\n\n✅ Thank you for choosing our services!`;
+
+      const whatsappURL = `https://wa.me/923266438812?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, "_blank");
+    });
+
+    // Load payments
+    populatePaymentSection();
+    
+  </script>
+</body>
+</html>
